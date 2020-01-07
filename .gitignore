@@ -7,7 +7,8 @@
 ##############
 # inventory  #
 ##############
-
+/group_vars/dynamic.yml
+/inventory/hosts
 
 ##############
 # terraform  #
