@@ -5,7 +5,18 @@
 /pass
 
 ##############
+# inventory  #
+##############
+
+
+##############
 # terraform  #
 ##############
 /terraform/.terraform
+/terraform/terraform.tfvars
+
+###############
+# visual code #
+###############
+/*.code-workspace
 
