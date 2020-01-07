@@ -6,10 +6,9 @@ remote_user:
 
 # aws_ami_id: "ami-06358f49b5839867c" #ubuntu 18.04
 aws_ami_id: "ami-0ff760d16d9497662" # centos 7.7
-# aws_region: "eu-west-1"
-# aws_instance_state: absent # absent planned present
 
 aws_region: "eu-west-1"
-aws_instance_state: absent # present / absent
+aws_profile: "test"
+aws_instance_state: present # present / absent
 
 ...

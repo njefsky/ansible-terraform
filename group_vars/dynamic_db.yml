@@ -1,0 +1,10 @@
+
+---
+
+ansible_host: 34.243.87.215
+ansible_user: centos
+become_user: centos
+remote_user: centos
+become: true
+
+...

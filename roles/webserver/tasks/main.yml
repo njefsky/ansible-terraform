@@ -1,0 +1,23 @@
+---
+
+- name: create website configuration 
+  template:
+    src: a_website.conf.j2
+    dest: /etc/httpd/conf.d/a_webstie.conf
+  become: true
+
+- name: copy html page 
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: apache
+    group: apache
+  become: true
+
+- name: restart webserver 
+  systemd:
+    name: httpd
+    state: restarted
+  become: true
+
+...

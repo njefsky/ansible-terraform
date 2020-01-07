@@ -1,0 +1,8 @@
+---
+
+- name: Create a new database with name devoteam
+  shell: 'mysql -u root -e "CREATE DATABASE devoteam;"'
+  register: shell_result
+  ignore_errors: true #ignore when database exits
+
+...
