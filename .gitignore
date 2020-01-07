@@ -2,3 +2,9 @@
 # vault      #
 ##############
 /group_vars/all/vault.yml
+/pass
+
+##############
+# terraform  #
+##############
+/terraform/.terraform
