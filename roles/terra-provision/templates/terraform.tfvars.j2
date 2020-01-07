@@ -1,0 +1,17 @@
+
+# shared_credentials_file = "/home/hans/.aws/credentials"
+private_key ="/home/hans/ssh-keys/opennebula/id_rsa"
+profile = "inf
+ra"
+server_port = 80
+key_name = "aws_deployer"
+
+# public key, aws_access_key_id, aws_secret_access_key will be overwritten from ansible vault var
+public_key = "{{ public_key }}"
+aws_access_key_id = "{{ aws_access_key_id }}"
+aws_secret_access_key = "{{ aws_secret_access_key }}"
+
+# aws_ami_id, aws_region will be overwritten from ansible var
+aws_ami_id = "{{ aws_ami_id }}"
+aws_region = "eu-west-1"
+aws_availability_zone = "eu-west-1a"

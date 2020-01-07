@@ -1,0 +1,8 @@
+---
+
+- name: create terraform.tfvars
+  template:
+     src: terraform.tfvars.j2
+     dest: "{{ playbook_dir }}/terraform/terraform.tfvars"
+
+...

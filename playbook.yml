@@ -1,0 +1,125 @@
+---
+
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+
+  # pre_tasks:
+    - name: include vaulted
+      include_vars:
+        file: vault.yml
+      no_log: yes
+    - name: include vars 
+      include_vars: 
+        file: vars.yml
+
+  tasks:
+
+    - name: create teraform.tfvars 
+      include_role: 
+        name: terra-provision
+
+    # - name: run terraform
+    #   shell: "echo yes | aws-vault --debug exec infra terraform {{ aws_instance_state }}"
+    #   args:
+    #     chdir: "{{ playbook_dir }}/terraform/"
+      
+    # - name: get state
+    #   set_fact:
+    #     terra_result: "{{ lookup('file', 'terraform/terraform.tfstate') | from_json  }}"
+
+    - name: run the terraform script 
+      terraform:
+        # binary_path: /home/hans/terraform-vault
+        project_path: "{{ playbook_dir }}/terraform/"
+        state: "{{ aws_instance_state }}"
+        variables: 
+          aws_region: "{{ aws_region }}"
+          aws_access_key_id: "{{ aws_access_key_id }}"
+          aws_secret_access_key: "{{ aws_secret_access_key }}"
+          aws_ami_id: "{{ aws_ami_id }}"
+          public_key: "{{ public_key }}"
+      register: terra_result
+
+    - name: show terra_result 
+      debug:
+        var: terra_result
+
+    - name: set vm_ip / name
+      set_fact:
+        vm_ip: "{{ terra_result.outputs.public_ip.value }}"
+        vm_name: "{{ terra_result.outputs.name.value }}"
+      when: terra_result.outputs.state is defined
+
+    - name: create inventory
+      block: 
+        - name: remove old dynamic group_vars file
+          file:
+            path: "group_vars/dynamic.yml"
+            state: absent
+        - name: create new centos group_vars file
+          file:
+            path: "group_vars/dynamic.yml"
+            state: touch
+        - name: remove old dynamic host file
+          file:
+            path: "inventory/hosts"
+            state: absent
+        - name: create new dynamic host file
+          file:
+            path: "inventory/hosts"
+            state: touch
+        - name: add retrieved IP to file
+          blockinfile:
+            path: "group_vars/dynamic.yml"
+            marker: ""
+            block: |
+              ---
+
+              ansible_host: {{ vm_ip }}
+              ansible_user: {{ remote_user[hypervisor] }}
+              become_user: {{ remote_user[hypervisor] }}
+              remote_user: {{ remote_user[hypervisor] }}
+              become: true
+
+              ...
+
+        - name: add retrieved IP to file
+          blockinfile:
+            path: "inventory/hosts"
+            marker: ""
+            block: |
+              [dynamic]
+              {{ vm_ip }}
+        - name: Add host
+          add_host:
+            hostname: "{{ vm_ip }}"
+            groupname: dynamic
+            remote_user: "{{ remote_user[hypervisor] }}"
+      when: terra_result.outputs.state is defined
+
+    - name: Collect facts again
+      setup:
+
+    ################################
+    # pause                        #
+    ################################
+    - name: Wait 300 seconds for port 22 to become open and contains the string "OpenSSH"
+      wait_for:
+        port: 22
+        host: '{{ vm_ip }}'
+        search_regex: OpenSSH
+        delay: 10
+      vars:
+        ansible_connection: local
+      when: vm_ip is defined
+      
+- hosts: dynamic
+
+  tasks:
+    - name: ls 
+      shell: ls -hal /
+
+...
