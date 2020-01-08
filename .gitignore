@@ -22,7 +22,7 @@
 ###############
 # visual code #
 ###############
-/*.code-workspace
+*.code-workspace
 
 ###################
 # no .retry files #
