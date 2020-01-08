@@ -21,14 +21,11 @@
       include_role: 
         name: terra-provision
 
-    # - name: run terraform
-    #   shell: "echo yes | aws-vault --debug exec infra terraform {{ aws_instance_state }}"
-    #   args:
-    #     chdir: "{{ playbook_dir }}/terraform/"
-      
-    # - name: get state
-    #   set_fact:
-    #     terra_result: "{{ lookup('file', 'terraform/terraform.tfstate') | from_json  }}"
+    - name: init the terraform if .terraform is not there
+      shell: terraform init
+      args:
+        chdir: "{{ playbook_dir }}/terraform/"
+        creates: "{{ playbook_dir }}/terraform/.terraform/"
 
     - name: run the terraform script 
       terraform:
@@ -71,6 +68,10 @@
           with_items:
             - group_vars/dynamic_web.yml
             - group_vars/dynamic_db.yml
+        - name: create the inventory directory
+          file:
+            path: inventory/
+            state: directory
         - name: remove old dynamic host file
           file:
             path: inventory/hosts
