@@ -7,7 +7,8 @@
 ##############
 # inventory  #
 ##############
-/group_vars/dynamic.yml
+/group_vars/dynamic_db.yml
+/group_vars/dynamic_web.yml
 /inventory/hosts
 
 ##############
@@ -27,4 +28,9 @@
 # no .retry files #
 ###################
 *.retry
+
+#########################
+# linux .directroy maps #
+#########################
+.directory
 
