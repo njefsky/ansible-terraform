@@ -1,5 +1,23 @@
 ---
 
+- name: yum update
+  yum:
+    name: '*'
+    state: latest
+  become: true
+
+- name: install mysql 
+  yum:
+    name: mariadb-server
+  become: true
+
+- name: restart mariadb 
+  service:
+    name: mariadb
+    state: restarted
+    enabled: yes
+  become: true
+
 - name: Create a new database with name devoteam
   shell: 'mysql -u root -e "CREATE DATABASE devoteam;"'
   register: shell_result

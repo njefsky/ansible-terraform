@@ -1,7 +1,7 @@
 
 ---
 
-ansible_host: 34.243.87.215
+ansible_host: 34.248.197.114
 ansible_user: centos
 become_user: centos
 remote_user: centos

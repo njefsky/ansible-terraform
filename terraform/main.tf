@@ -75,19 +75,19 @@ resource "aws_instance" "devotest_web" {
     Name = "terraform-devotest"
   }
 
-  user_data = <<-EOF
-              #!/bin/bash
-              yum update -y
-              amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
-              yum install -y httpd
-              systemctl start httpd
-              systemctl enable httpd
-              usermod -a -G apache apache
-              chown -R apache:apache /var/www
-              chmod 2775 /var/www
-              find /var/www -type d -exec chmod 2775 {} \;
-              find /var/www -type f -exec chmod 0664 {} \;
-   EOF
+  # user_data = <<-EOF
+  #             #!/bin/bash
+  #             yum update -y
+  #             amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+  #             yum install -y httpd
+  #             systemctl start httpd
+  #             systemctl enable httpd
+  #             usermod -a -G apache apache
+  #             chown -R apache:apache /var/www
+  #             chmod 2775 /var/www
+  #             find /var/www -type d -exec chmod 2775 {} \;
+  #             find /var/www -type f -exec chmod 0664 {} \;
+  #  EOF
 
 }
 
@@ -101,14 +101,14 @@ resource "aws_instance" "devotest_db" {
     Name = "terraform-devotest"
   }
 
-  user_data = <<-EOF
-              #!/bin/bash
-              yum update -y
-              amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
-              yum install -y mariadb-server
-              systemctl start mariadb
-              systemctl enable mariadb
-   EOF
+  # user_data = <<-EOF
+  #             #!/bin/bash
+  #             yum update -y
+  #             amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+  #             yum install -y mariadb-server
+  #             systemctl start mariadb
+  #             systemctl enable mariadb
+  # EOF
 
 }
 

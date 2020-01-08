@@ -7,13 +7,13 @@
   vars:
 
   # pre_tasks:
-    - name: include vaulted
-      include_vars:
-        file: vault.yml
-      no_log: yes
-    - name: include vars 
-      include_vars: 
-        file: vars.yml
+  #   - name: include vaulted
+  #     include_vars:
+  #       file: vault.yml
+  #     no_log: yes
+  #   - name: include vars 
+  #     include_vars: 
+  #       file: vars.yml
 
   tasks:
 

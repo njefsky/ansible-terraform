@@ -1,5 +1,16 @@
 ---
 
+- name: yum update
+  yum:
+    name: '*'
+    state: latest
+  become: true
+
+- name: install apache 
+  yum:
+    name: httpd
+  become: true
+
 - name: create website configuration 
   template:
     src: a_website.conf.j2
@@ -15,9 +26,10 @@
   become: true
 
 - name: restart webserver 
-  systemd:
+  service:
     name: httpd
     state: restarted
+    enabled: yes
   become: true
 
 ...
