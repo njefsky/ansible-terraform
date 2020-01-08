@@ -17,12 +17,12 @@
 /terraform/.terraform
 /terraform/terraform.tfvars
 /terraform/terraform.tfstate
-/terraform/terraform/tfstate.backup
+/terraform/terraform.tfstate.backup
 
 ###############
 # visual code #
 ###############
-/*.code-workspace
+*.code-workspace
 
 ###################
 # no .retry files #

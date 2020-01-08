@@ -1,19 +1,14 @@
 ---
 
+############################
+# terraform playbook       #
+############################
+
 - hosts: localhost
   connection: local
   gather_facts: no
 
   vars:
-
-  # pre_tasks:
-  #   - name: include vaulted
-  #     include_vars:
-  #       file: vault.yml
-  #     no_log: yes
-  #   - name: include vars 
-  #     include_vars: 
-  #       file: vars.yml
 
   tasks:
 
@@ -29,7 +24,6 @@
 
     - name: run the terraform script 
       terraform:
-        # binary_path: /home/hans/terraform-vault
         project_path: "{{ playbook_dir }}/terraform/"
         state: "{{ aws_instance_state }}"
         variables: 

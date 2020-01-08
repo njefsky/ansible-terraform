@@ -74,6 +74,9 @@ resource "aws_instance" "devotest_web" {
   tags = {
     Name = "terraform-devotest"
   }
+  root_block_device {
+    delete_on_termination = true
+  }
 
   # user_data = <<-EOF
   #             #!/bin/bash
@@ -99,6 +102,9 @@ resource "aws_instance" "devotest_db" {
   vpc_security_group_ids = [aws_security_group.devotest.id]
   tags = {
     Name = "terraform-devotest"
+  }
+  root_block_device {
+    delete_on_termination = true
   }
 
   # user_data = <<-EOF
