@@ -33,4 +33,5 @@
 # linux .directroy maps #
 #########################
 .directory
+.DS_Store
 
