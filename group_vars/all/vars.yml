@@ -11,4 +11,6 @@ aws_region: "eu-west-1"
 aws_profile: "test"
 aws_instance_state: absent # present / absent
 
+aws_webserver_port: 80
+
 ...
